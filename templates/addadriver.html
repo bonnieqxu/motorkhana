@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block title %}Add Driver{% endblock %}</title>
+        <!-- Bootstrap CSS link -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    </head>
+
+    <body>   
+      <!-- Adding background colour -->
+      <div class="p-3 mb-2 bg-danger-subtle text-emphasis-danger container-fluid">
+
+        
+          <!-- Adding a header section with navigation links -->
+        <header  style="display: flex; justify-content: space-between;">
+            <a href="{{ url_for('admin') }}">Admin Home</a>
+            <div class="container text-center"> 
+                <h5 style="background: linear-gradient(to right, #3498db, #e74c3c); color: #fff; padding: 10px;">Bankside Rakaia Motorkhana Mavens - Competition Event</h5>
+                <p> by BRMM Car Club</p>
+                <h1>Welcome To Our Monthly Event!</h1>
+                <br>
+                <!-- Displaying an admin page message -->
+                <p class="text-muted"> You are currently on the Admin page </p>
+            </div>
+            <!-- Logout link to return to the public interface -->
+            <a href="{{ url_for('home') }}">Logout Here</a>
+        </header>
+       
+        <br>
+
+        <!-- Adding horizontal lines for separation and a title for the driver addition section -->
+        <hr class="border border-dark border-1 opacity-50">
+        <h2 class="text-center">Add a Driver</h2>
+        <hr class="border border-dark border-1 opacity-50">
+    
+        <p class="text-center">Please Provide Details for the New Driver</p>
+        
+        <br>
+       
+        <div class="container d-flex justify-content-center" style="min-height: 100vh;">
+        <!-- Driver information form -->
+            <form method="POST"  action="/admin/addadriver">
+                <fieldset class="border border-dark p-2">
+                    <legend>New Driver's information</legend>
+                        <!-- Informing users of required fields with an asterisk (*) -->
+                        <p><span class="text-danger">Required values are marked by an asterisk (*) </span></p>
+                        
+                        <!-- Input for driver's first name with validation -->
+                        <label for="first_name">Please enter new driver's First Name (Only letters allowed): *</label>
+                        <input type="text" id="first_name" name="first_name" placeholder="e.g. Jane" required pattern="^(?=.*[A-Za-z])([A-Za-z\s]+)$" required><br>
+                
+                        <br>
+
+                        <!-- Input for driver's surname with validation -->
+                        <label for="surname">Please enter new driver's Surname (Only letters allowed): *</label>
+                        <input type="text" id="surname" name="surname" placeholder="e.g. Doe"  required pattern="^(?=.*[A-Za-z])([A-Za-z\s]+)$" required><br>
+                
+                        <br>
+
+                        <!-- Dropdown for choosing a car -->
+                        <label for="car_num">Please choose a car from the list: *</label><br>
+                        <br>
+                        <div class="container d-flex justify-content-center align-items-center">
+                        <select size= "8" id="car_num" name="car_num" required>
+                            <!-- Iterate through car options and display -->
+                            {% for car in cars %}
+                            <option value="{{ car[0]}}">{{ car[0] }}  {{ car[1] }}  {{ car[2] }}</option>
+                            {% endfor %}
+                        </select><br>
+                        </div>
+
+                        <br>
+
+                        <!-- Checkbox for indicating a junior driver -->
+                        <label id="junior_driver" for="junior_driver">Tick the box if the driver is a Junior (aged 12-25)?</label>
+                        <input type="checkbox" id="junior_driver" name="junior_driver" role="button" data-bs-toggle="collapse" href="#juniorFields" role="button" aria-expanded="false" aria-controls="juniorFields">
+                        
+                        <br>
+                        
+                        <!-- Collapsible section for junior driver information -->
+                        <div class="collapse" id="juniorFields">
+                            <div class="card card-body"> 
+                                <!-- Input for date of birth (if the driver is a junior) -->
+                                <label for="date_of_birth">Please enter a date (DD-MM-YYYY):</label>
+                                <input type="date" id="date_of_birth" name="date_of_birth" pattern="\d{2}-\d{2}-\d{4}" min="1940-01-01" max="2023-12-31">
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <!-- Submit button and reset button for adding a driver -->
+                        <div class="text-center">
+                            <button type="reset" class="btn btn-secondary">Reset</button>
+                            <button type="submit" class="btn btn-success">Add Driver</button>
+                        </div>
+                    
+                </fieldset>
+            </form>
+        </div>
+        
+        <!-- Bootstrap's JavaScript bundle including Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    </div>
+    </body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block title %}Run Details{% endblock %}</title>
+        <!-- Bootstrap CSS link -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    </head>
+
+    <body>
+        <div class="p-3 mb-2 bg-success-subtle text-emphasis-success container-fluid">
+
+            
+        <!-- adding navigation-->
+        <header  style="display: flex; justify-content: space-between;">
+            <a href="{{ url_for('home') }}">Home</a>
+            <div class="container text-center"> 
+                <h5 style="background: linear-gradient(to right, #3498db, #e74c3c); color: #fff; padding: 10px;">Bankside Rakaia Motorkhana Mavens - Competition Event</h5>
+                <p> by BRMM Car Club</p>
+                <h1>Welcome To Our Monthly Event!</h1>
+            </div>
+            <!-- ADMIN ENTRY POINT TOP RIGHT CORNER OF HOME PAGE-->
+            <a href="{{ url_for('admin') }}">Admin</a>
+        </header>
+      
+        <br>
+
+
+        <hr class="border border-dark border-1 opacity-50">
+        <h2 class="text-center">Driver's Run Details</h2>
+        <hr class="border border-dark border-1 opacity-50">
+        <br>
+
+        <!-- add navigation -->
+        <div class="text-center">
+            <a href="{{ url_for('namedropdown') }}">
+                <button class="btn btn-warning">Choose Another Driver</button>
+            <a href="{{ url_for('listdrivers') }}">
+                <button class="btn btn-success">Go to List of Drivers</button>
+            </a>
+        </div>
+
+        <br>
+        
+        <!-- Driver's Information Section -->
+        <hr>
+        <h5 class="mb-0 text-center">Driver's Information</h5>
+        <hr>
+        <ul class="list-unstyled" style="text-align: center;">
+            <li><strong>Driver ID: </strong> {{  driver_info.driver_id }}</li>
+            <li><strong>First Name: </strong> {{  driver_info.first_name }}</li>
+            <li><strong>Surname: </strong> {{  driver_info.surname }}</li>                
+            <li><strong>Car Model: </strong> {{  driver_info.car_model }}</li>
+            <li><strong>Drive Class: </strong> {{  driver_info.drive_class }}</li>
+        </ul>
+        <hr>
+
+        <br>
+            <!-- Table Section for Run Details -->
+            <table class="table table-success table-striped table-hover table-bordered border border-secondary">
+                <caption>* Run Total: Calculated as the sum of time, cones multiplied by 5, and WD multiplied by 10 for each run where applicable.</caption>
+                <tr>
+                    <!-- headings -->
+                    <th>Course Names</th>
+                    <th>Run Number</th>
+                    <th>Time</th>
+                    <th>Cones Hit</th>
+                    <th>WD</th>
+                    <th>Run Total</th>
+                </tr>
+                
+                <!-- loop through rundetail_list to display run details -->
+                {% for run in rundetail_list %}
+                <tr>
+                    <td>{{ run[5] }}</td>
+                    <td>{{ run[6] }}</td>
+                    <td>{{ run[7] if run[7] is not none else "" }}</td>
+                    <td>{{ run[8] if run[8] is not none else "" }}</td>
+                    <td>{{ "wd" if run[9] is not none and run[9] == 1 else "" }}</td>
+                    <td>{{ run[10] if run[10] is not none else "" }}</td>
+                </tr>
+                {% endfor %} 
+            </table>
+
+        <!-- Bootstrap's JavaScript bundle including Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        </div>
+    </body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block title %}Home{% endblock %}</title>
+        <!-- Bootstrap CSS link -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    </head>
+
+    <body>
+      <!-- Adding background colour -->
+      <div class="p-3 mb-2 bg-success-subtle text-emphasis-success container-fluid">
+
+
+      <nav>
+        
+        <header  style="display: flex; justify-content: space-between;">
+          <div class="container text-center"> 
+
+            <h5 style="background: linear-gradient(to right, #3498db, #e74c3c); color: #fff; padding: 10px;">Bankside Rakaia Motorkhana Mavens - Competition Event</h5>
+            <p> by BRMM Car Club</p>
+            <h1>Welcome To Our Monthly Event!</h1>
+          </div>
+            <!-- ADMIN ENTRY POINT TOP RIGHT CORNER OF HOME PAGE-->
+            <a href="{{ url_for('admin') }}">Admin</a>
+        </header>
+
+        <hr>
+        <br>
+
+          <div class="container d-flex justify-content-center" style="min-height: 100vh;">
+          <!-- Unordered list of navigation links -->
+            <ul class="list-unstyled text-left">
+              <li><a href="{{ url_for('listcourses') }}" class="btn btn-link btn-lg">List of Courses</a></li>
+              <li><a href="{{ url_for('listdrivers') }}" class="btn btn-link btn-lg">List of Drivers</a></li>
+              <li><a href="{{ url_for('namedropdown') }}" class="btn btn-link btn-lg">Driver's run details</a></li>
+              <li><a href="{{ url_for('overallresults') }}" class="btn btn-link btn-lg">Overall Results</a></li>
+              <li><a href="{{ url_for('showgraph') }}" class="btn btn-link btn-lg">Bar Graph of the Top 5 drivers</a></li>
+          </ul>
+          
+        </div>
+      </nav>
+          <section class="content">
+            <header>
+              {% block header %}{% endblock %}
+            </header>
+            {% for message in get_flashed_messages() %}
+              <div class="flash">{{ message }}</div>
+            {% endfor %}
+            {% block content %}{% endblock %}
+          </section>
+
+        <!-- Bootstrap's JavaScript bundle including Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    
+      </div>
+    </body>
+   
+</html>

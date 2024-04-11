@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block title %}Course List{% endblock %}</title>
+        <!-- Bootstrap CSS link -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    </head>
+
+    <body>
+        <div class="p-3 mb-2 bg-success-subtle text-emphasis-success container-fluid">
+
+        <!-- adding a link to home page-->
+        <header  style="display: flex; justify-content: space-between;">
+            <a href="{{ url_for('home') }}">Home</a>
+            <div class="container text-center"> 
+                <h5 style="background: linear-gradient(to right, #3498db, #e74c3c); color: #fff; padding: 10px;">Bankside Rakaia Motorkhana Mavens - Competition Event</h5>
+                <p> by BRMM Car Club</p>
+                <h1>Welcome To Our Monthly Event!</h1>
+            </div>
+            <!-- ADMIN ENTRY POINT TOP RIGHT CORNER OF HOME PAGE-->
+            <a href="{{ url_for('admin') }}">Admin</a>
+        </header>
+      
+        <br>
+
+        <hr class="border border-dark border-1 opacity-50">
+        <h2 class="text-center">Course List</h2>
+        <h4 class="text-center">Current Competition Courses</h4>
+        <hr class="border border-dark border-1 opacity-50">
+        
+
+        <div class="text-center">
+            <a href="{{ url_for('home') }}">
+                <button class="btn btn-success">Return</button>
+            </a>
+        </div>
+
+        <br>
+
+        <!-- DISPLAYING LIST OF COURSES IN A TABLE-->
+        <table class="table table-success table-striped table-hover table-bordered border border-secondary text-center">
+            <tr>
+                <th>Course</th>
+                <th>Name</th>
+                <th>Map diagram</th>
+            </tr>
+            
+            <tbody class="table-group-divider">
+                {% for course in course_list %}
+                <tr>
+                    {% for field in course %}                          
+                        <td>
+                            <!-- adding images and adjusting the size of the images -->
+                            {% if loop.index == 3 %}                                
+                                <img src="static/{{ field }}" style="max-width: 50%; max-height: 50%;" >
+                            {% else %}
+                                {{ field }}
+                            {% endif %}       
+                        </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="text-center">
+            <a href="{{ url_for('home') }}">
+                <button class="btn btn-success">Return</button>
+            </a>
+        </div>
+
+        <!-- Bootstrap's JavaScript bundle including Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>    
+    </body> 
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block title %}By Driver{% endblock %}</title>
+        <!-- Bootstrap CSS link -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    </head>
+
+    <body>   
+      <!-- Adding background colour -->
+      <div class="p-3 mb-2 bg-danger-subtle text-emphasis-danger container-fluid">
+
+        
+          <!-- adding navigation-->
+        <header  style="display: flex; justify-content: space-between;">
+            <a href="{{ url_for('admin') }}">Admin Home</a>
+            <div class="container text-center"> 
+
+                <h5 style="background: linear-gradient(to right, #3498db, #e74c3c); color: #fff; padding: 10px;">Bankside Rakaia Motorkhana Mavens - Competition Event</h5>
+                <p> by BRMM Car Club</p>
+                <h1>Welcome To Our Monthly Event!</h1>
+                <br>
+                <!-- Admin page message -->
+                <p class="text-muted"> You are currently on the Admin page </p>
+            </div>
+            <!-- Logout link to return to the public interface -->
+            <a href="{{ url_for('home') }}">Logout Here</a>
+        </header>
+
+       
+        <br>
+
+        <hr class="border border-dark border-1 opacity-50">
+        <h2 class="text-center">Edit runs</h2>
+        <hr class="border border-dark border-1 opacity-50">
+    
+        <h5 class="text-center">Please choose one of the following runs to edit.</h5>
+        
+        <br>
+
+        <div class="text-center">
+            <a href="{{ url_for('editruns') }}">
+                <button class="btn btn-success">Choose A Different Driver</button>
+            </a>
+        </div>
+
+        <br>
+
+        {% for run in run_list %}
+
+        <form method="post" action="/update_run">
+            <!-- Hidden fields to store driver_id, course_id, and run_number for the specific run -->
+            <input type="hidden" name="driver_id" value="{{ run[0] }}">
+            <input type="hidden" name="course_id" value="{{ run[3] }}">
+            <input type="hidden" name="run_number" value="{{ run[5] }}">
+
+            <input type="hidden" name="first_name" value="{{ run[1] }}">
+            <input type="hidden" name="surname" value="{{ run[2] }}">
+            <input type="hidden" name="course_name" value="{{ run[4] }}">
+
+                
+            <table class="table align-middle table-danger table-striped table-hover table-borderless border border border-secondary">
+                <tr>
+                    <!-- Table headers -->
+                    <th>Driver ID</th>
+                    <th>First Name</th>
+                    <th>Surname</th>
+                    <th>Course ID</th>
+                    <th>Course Name</th>
+                    <th>Run Number</th>
+                    <th>Time</th>
+                    <th>Cones</th>
+                    <th>WD</th>
+                    <th>Action</th>
+                </tr>
+                <tr>
+                    <!-- Displaying driver information as read-only inputs -->
+                    <td>{{ run[0] }}</td>
+                    <td>{{ run[1] }}</td>
+                    <td>{{ run[2] }}</td>
+                    <td>{{ run[3] }}</td>
+                    <td>{{ run[4] }}</td>
+                    <td>{{ run[5] }}</td>
+
+                    <!-- Allowing updates for time, cones, and WD with input validation-->
+                    <td><input type="number" name="time" min="10" max="120" step="0.01" value="{% if run[6] is not none %}{{ run[6] }}{% endif %}"></td>
+                    <td><input type="number" name="cones" min="0" max="25" value="{% if run[7] is not none %}{{ run[7] }}{% endif %}"></td>
+                        
+                    <td>
+                        <!-- Dropdown to select 'WD' or no 'WD' for the run -->
+                        <select name="wd" class="custom-select bg-white">
+                            <option value="1" {% if run[8] == 'wd' %}selected{% endif %}>wd</option>
+                            <option value="0" {% if run[8] == '' %}selected{% endif %}></option>
+                        </select>
+                    </td>
+                    <td>
+                        <!-- Submit and reset buttons -->
+                        <button type="reset" class="btn btn-secondary">Reset</button>
+                        <button type="submit" value="Update" class="btn btn-warning">Update</button>
+                        
+                    </td>           
+                </tr>
+            </table>
+        </form>
+        {% endfor %}
+
+        <!-- Bootstrap's JavaScript bundle including Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    </body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block title %}Successful Add{% endblock %}</title>
+        <!-- Bootstrap CSS link -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    </head>
+
+    <body>   
+      <!-- Adding background colour -->
+      <div class="p-3 mb-2 bg-danger-subtle text-emphasis-danger container-fluid">
+
+        
+          <!-- adding navigation -->
+        <header  style="display: flex; justify-content: space-between;">
+            <a href="{{ url_for('admin') }}">Admin Home</a>
+            <div class="container text-center"> 
+
+                <h5 style="background: linear-gradient(to right, #3498db, #e74c3c); color: #fff; padding: 10px;">Bankside Rakaia Motorkhana Mavens - Competition Event</h5>
+                <p> by BRMM Car Club</p>
+                <h1>Welcome To Our Monthly Event!</h1>
+                <br>
+                <!-- Admin page message -->
+                <p class="text-muted"> You are currently on the Admin page </p>
+            </div>
+            <!-- Logout link to return to the public interface -->
+            <a href="{{ url_for('home') }}">Logout Here</a>
+        </header>
+
+       
+        <br>
+
+        <hr class="border border-dark border-1 opacity-50">
+        <h2 class="text-center">😃</h2>
+        <hr class="border border-dark border-1 opacity-50">
+
+        <div class="container">
+            <div class="alert alert-warning" role="alert">
+                <!-- Success message for adding a driver -->
+                <br>
+                <h4 class="alert-heading">This Driver Has Been Successfully Added!</h4><br>
+                <hr>
+                <h5 class="mb-0">Run Information:</h5><br>
+                <ul>
+                    <li><strong>Driver ID:</strong> {{ added_driver.driver_id }}</li>
+                    <li><strong>First Name:</strong> {{ added_driver.first_name }}</li>
+                    <li><strong>Surname:</strong> {{ added_driver.surname }}</li>   
+                    <li><strong>Date of Birth:</strong> {% if added_driver.date_of_birth == None %}N/A{% else %}{{ added_driver.date_of_birth }}{% endif %}</li>
+                    <li><strong>Age:</strong> {% if added_driver.age == None %}N/A{% else %}{{ added_driver.age }}{% endif %}</li>
+                    <li><strong>Caregiver:</strong> {% if added_driver.caregiver == None %}N/A{% else %}{{ added_driver.caregiver }}{% endif %}</li>
+                    <li><strong>Car Number:</strong> {{ added_driver.car_number }}</li>
+                    
+                </ul>
+                <hr>
+                <p class="mb-0">Please Press Button to Add Another Driver or Edit Runs.</p>
+            </div>
+        
+
+        <!-- Add buttons to navigate -->
+        <div class="text-center">
+            <a href="{{ url_for('addadriver') }}" class="btn btn-success">Add Another Driver</a>
+            <a href="{{ url_for('editruns') }}" class="btn btn-warning">Edit Runs</a>
+        </div>
+
+
+            
+    
+        </div>
+        <!-- Bootstrap's JavaScript bundle including Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    </body>
+</html>

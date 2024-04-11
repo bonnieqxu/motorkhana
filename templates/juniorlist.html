@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block title %}Junior Driver List{% endblock %}</title>
+        <!-- Bootstrap CSS link -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    </head>
+
+    <body>   
+      <!-- Adding background colour -->
+      <div class="p-3 mb-2 bg-danger-subtle text-emphasis-danger container-fluid">
+
+        <nav>
+          <!-- adding navigation links-->
+        <header  style="display: flex; justify-content: space-between;">
+            <a href="{{ url_for('admin') }}">Admin Home</a>
+            <div class="container text-center"> 
+
+                <h5 style="background: linear-gradient(to right, #3498db, #e74c3c); color: #fff; padding: 10px;">Bankside Rakaia Motorkhana Mavens - Competition Event</h5>
+                <p> by BRMM Car Club</p>
+                <h1>Welcome To Our Monthly Event!</h1>
+                <br>
+                <!-- Admin page message -->
+                <p class="text-muted"> You are currently on the Admin page </p>
+            </div>
+            <!-- Logout link to return to the public interface -->
+            <a href="{{ url_for('home') }}">Logout Here</a>
+        </header>
+
+       
+        <br>
+
+        <hr class="border border-dark border-1 opacity-50">
+        <h2 class="text-center">Junior Driver List</h2>
+        <hr class="border border-dark border-1 opacity-50">
+        
+        <br>
+
+        <!-- Create a table to display the junior driver list -->
+        <table class="table table-danger table-striped table-hover table-bordered border border border-secondary">
+            <thead>
+                <tr>
+                    <!-- Table header row with column headings -->
+                    <th>Driver ID</th>
+                    <th>First Name</th>
+                    <th>Surname</th>
+                    <th>Date of Birth</th>
+                    <th>Age</th>
+                    <th>Caregiver</th>
+                       
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+            
+                <!-- Loop through 'junior_list' to display information for each junior driver -->
+                {% for driver in junior_list %}
+                <tr>
+                    {% for field in driver %}
+                    <td>
+                        {% if field is not none %}
+                            {{ field }}     <!-- Display the field value if it's not null -->
+                        {% else %}
+                            N/A              <!-- Display "N/A" if the field is null -->
+                        {% endif %}
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="text-center" style="min-height: 100vh;">
+            <a href="{{ url_for('admin') }}">
+                <button class="btn btn-warning">Return</button>
+            </a>
+        </div>
+
+
+        <!-- Bootstrap's JavaScript bundle including Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+      </div>
+    </body>
+</html>

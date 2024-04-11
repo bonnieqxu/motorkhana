@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block title %}Top 5 Drivers{% endblock %}</title>
+        <!-- Bootstrap CSS link -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+   
+        <!-- access Plotly content delivery network (CDN) charting library -->
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>  
+    </head>
+
+
+    <body>
+        <div class="p-3 mb-2 bg-success-subtle text-emphasis-success container-fluid">
+ 
+        <!-- adding navigation-->
+        <header  style="display: flex; justify-content: space-between;">
+            <a href="{{ url_for('home') }}">Home</a>
+            <div class="container text-center"> 
+                <h5 style="background: linear-gradient(to right, #3498db, #e74c3c); color: #fff; padding: 10px;">Bankside Rakaia Motorkhana Mavens - Competition Event</h5>
+                <p> by BRMM Car Club</p>
+                <h1>Welcome To Our Monthly Event!</h1>
+            </div>
+            <!-- ADMIN ENTRY POINT TOP RIGHT CORNER OF HOME PAGE-->
+            <a href="{{ url_for('admin') }}">Admin</a>
+        </header>
+      
+        <br>
+
+        <hr class="border border-dark border-1 opacity-50">
+        <h2 class="text-center">Top 5 Drivers Overall</h2>
+        <hr class="border border-dark border-1 opacity-50">
+        
+        <br>
+
+
+        <!-- Create a container for the horizontal bar chart -->
+        <div id="myHBarPlot" class="mx-auto bg-light" style="width:100%; max-width:600px;"></div>
+        
+        <script>
+            // Note SPACE after each fruit name so gap before horizontal bars
+            var value_list = {{ value_list | safe }};
+            var name_list = {{ name_list | safe }};
+            // REPLACE constants above with passed in variables.
+            // Use the '|safe' Jinja filter to mark them as safe (prevents your data being html-escaped). eg,
+            // var myList = {{ list_from_py | safe }}
+            // Define graph data
+
+            // Reverse the order of 'value_list' to display in descending order
+            value_list.reverse();
+            name_list.reverse();
+
+            data = [{ 
+                    x:  value_list,  
+                    y: name_list,  
+                    
+                    type:"bar", 
+                    orientation:"h", 
+                    marker: {color:"navy"},
+                    
+                    text: value_list,
+                    textposition: "outside"
+            }];
+
+            // Define graph layout
+            layout = {  
+                title: "Top 5 Drivers",
+                xaxis: {range: [0, 350], title: "Result in Seconds"}, 
+                yaxis: { tickfont: { size: 11, weight: "bold" },  automargin: true},
+                barmode: 'relative', 
+                bargap: 0.5,   
+            };
+
+            // Display using Plotly
+            Plotly.newPlot("myHBarPlot", data, layout);
+        </script>
+
+        <br>
+
+        <div class="text-center" style="min-height: 100vh;">
+            <a href="{{ url_for('home') }}">
+                <button class="btn btn-success">Return</button>
+            </a>
+        </div>
+
+        
+    </body>
+</html>

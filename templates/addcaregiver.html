@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block title %}Caregiver{% endblock %}</title>
+        <!-- Bootstrap CSS link -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    </head>
+
+    <body>   
+        <!-- Adding background colour -->
+        <div class="p-3 mb-2 bg-danger-subtle text-emphasis-danger container-fluid">
+
+        
+          <!-- adding navigation-->
+        <header  style="display: flex; justify-content: space-between;">
+            <a href="{{ url_for('admin') }}">Admin Home</a>
+            <div class="container text-center"> 
+
+                <h5 style="background: linear-gradient(to right, #3498db, #e74c3c); color: #fff; padding: 10px;">Bankside Rakaia Motorkhana Mavens - Competition Event</h5>
+                <p> by BRMM Car Club</p>
+                <h1>Welcome To Our Monthly Event!</h1>
+                <br>
+                <!-- Admin page message -->
+                <p class="text-muted"> You are currently on the Admin page </p>
+            </div>
+            <!-- Logout link to return to the public interface -->
+            <a href="{{ url_for('home') }}">Logout Here</a>
+        </header>
+       
+        <br>
+
+        <hr class="border border-dark border-1 opacity-50">
+        <h2 class="text-center">Caregiver Information</h2>
+        
+        <hr class="border border-dark border-1 opacity-50">
+
+        <br>
+
+        <h5 class="text-center">Driver Information</h5>
+
+        <br>
+            
+         <!-- Table to display driver information -->
+        <table class="table table-danger table-striped table-hover table-bordered border border border-secondary">
+            <tr>
+                <th>First Name</th>
+                <th>Surname</th>
+                <th>Car Number</th>
+                <th>Date of Birth</th>
+                <th>Age</th>
+            </tr>
+
+            <tr>
+                <td>{{first_name}}</td>
+                <td>{{surname}}</td>
+                <td>{{car_num}} </td>
+                <td>{{date_of_birth}}</td> 
+                <td>{{age}}</td>
+            </tr>
+        </table>
+
+        <!-- Form to add a caregiver for the driver -->
+        <form method="POST" action="/admin/addcaregiver">
+            
+            <!-- Hidden fields to submit driver information -->
+            <input type="hidden" name="first_name" value="{{ first_name }}">
+            <input type="hidden" name="surname" value="{{ surname }}">
+            <input type="hidden" name="car_num" value="{{ car_num }}">
+            <input type="hidden" name="date_of_birth" value="{{ date_of_birth }}">
+            <input type="hidden" name="age" value="{{ age }}">
+            
+            <!-- Dropdown menu to select a caregiver -->
+                <fieldset>
+                    
+                    <label for="caregiver" class="text-danger text-center" style="text-align: center; display: block; margin: 0 auto;">
+                        * This junior driver requires supervision. Please select a caregiver from the list:
+                    </label>
+                    
+                    <br>
+                    <div class="text-center" style="height: 40px; display: flex; justify-content: center;">
+                    <select id="caregiver" name="caregiver"  class="bg-white" required>
+
+                        <!-- Default value -->
+                        <option value="" disabled selected>Select a Caregiver HERE</option>
+                    
+                        
+                        <!-- Loop through caregivers and generate options -->
+                        {% for caregiver in caregivers %}
+                        <option value="{{ caregiver[0] }}">{{ caregiver[0] }} {{ caregiver[1] }} {{ caregiver[2] }}</option>
+                        {% endfor %}
+                        </select><br> 
+                    </div>
+                    <!-- Submit button for adding a caregiver -->
+                    <br>
+                    <br>
+                    <br>
+                    <div class="text-center">
+                    <button type="submit" class="btn btn-success">Add Caregiver</button>
+                    </div>
+        
+                </fieldset>
+            </form>
+
+        <!-- Bootstrap's JavaScript bundle including Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    </div>
+    </body>
+</html>
